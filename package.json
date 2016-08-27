@@ -1,0 +1,23 @@
+{
+  "name": "fcc_forum_trending_api",
+  "version": "1.0.0",
+  "description": "Returns the day, week, month, or all time trending topic keywords from the FCC forums",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "FCC",
+    "forum",
+    "trending"
+  ],
+  "author": "Zac Clemans",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jquery": "^3.1.0",
+    "mongoose": "^4.5.10",
+    "request": "^2.74.0"
+  }
+}
