@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/routes.js');
 var fetchTopics = require('./utils/fetchTopics.js');
 var saveTopics = require('./utils/saveTopics.js');
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 mongoose.connect(require('./config/database.js'), function(err) {
 	if (err) {
