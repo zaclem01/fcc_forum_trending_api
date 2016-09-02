@@ -28,14 +28,13 @@ app.listen(port, function(){
 	setInterval(function() {
 		console.log('Run number', counter);
 		counter++;
-		fetchTopics('latest', function(err, topics) {
-			if (err) {
-				console.error(err);
-			} else {
+		fetchTopics('latest')
+			.then(function(topics) {
 				var topicsList = topics.topic_list.topics;
-
 				saveTopics(topicsList);
-			}
-		});
+			})
+			.catch(function(err) {
+				console.error('There was a problem fetching the topics (crossorigin.me likely down):', err);
+			});
 	}, 900000); // Run scrape every 15 minutes on server start
 });

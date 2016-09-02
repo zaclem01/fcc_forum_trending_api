@@ -19,7 +19,6 @@ module.exports = function(topics) {
 				if (topic) {
 					return console.log('Topic already saved');
 				} else {
-					console.log('Attempting to save new topic');
 					var newTopic = new Topic();
 
 					newTopic.topic_id = id;

@@ -6,34 +6,6 @@ var Topic = require('../models/topics.js');
 var stopWords = require('./stopWords.js');
 
 
-function getTopicRange(start, end) {
-	return Topic.find({ 
-		post_date: {
-			$lt: new Date( new Date().setDate( new Date().getDate() - end ) ),
-			$gte: new Date( new Date().setDate( new Date().getDate() - start ) )
-		}
-	});
-}
-
-
-function parseTopic(topic) {
-	var title = topic.title;
-
-	var noSpecialChars = title.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, '');
-
-	var split = noSpecialChars.split(/\s+/g);
-	
-	var parsed = [];
-	split.forEach(function(word) {
-		if (stopWords.indexOf(word) === -1 && parsed.indexOf(word) === -1) {
-			parsed.push(word);
-		}
-	});
-
-	return parsed;
-}
-
-
 module.exports = function(type, timePeriods) {
 	return new Promise(function(resolve, reject) {
 		if (timePeriods === undefined) {
@@ -57,7 +29,7 @@ module.exports = function(type, timePeriods) {
 		} else if (type === 'weekly') {
 			basis = 7;
 		} else {
-			return console.error('Trend type not recognized. Try daily or weekly');
+			return console.error('Trend type not recognized. Only daily or weekly supported.');
 		}
 
 		for (var i = 0; i < timePeriods; i++) {
@@ -132,3 +104,31 @@ module.exports = function(type, timePeriods) {
 
 	
 };
+
+
+function getTopicRange(start, end) {
+	return Topic.find({ 
+		post_date: {
+			$lt: new Date( new Date().setDate( new Date().getDate() - end ) ),
+			$gte: new Date( new Date().setDate( new Date().getDate() - start ) )
+		}
+	});
+}
+
+
+function parseTopic(topic) {
+	var title = topic.title;
+
+	var noSpecialChars = title.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, ' ');
+
+	var split = noSpecialChars.split(/\s+/g);
+	
+	var parsed = [];
+	split.forEach(function(word) {
+		if (stopWords.indexOf(word) === -1 && parsed.indexOf(word) === -1) {
+			parsed.push(word);
+		}
+	});
+
+	return parsed;
+}

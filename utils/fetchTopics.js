@@ -3,18 +3,20 @@
 var request = require('request');
 var https = require('https');
 
-module.exports = function(type, callback) {
-	var url = 'https://crossorigin.me/http://forum.freecodecamp.com/' + type + '.json';
-	request(url, function(err, res, body) {
-		if (err) {
-			callback(err);
-		} else {
-			try {
-				var topics = JSON.parse(body);
-				callback(null, topics);
-			} catch (err) {
-				callback(err);
+module.exports = function(type) {
+	var url = 'http://forum.freecodecamp.com/' + type + '.json';
+	return new Promise(function(resolve, reject) {
+		request(url, function(err, res, body) {
+			if (err) {
+				reject(err);
+			} else {
+				try {
+					var topics = JSON.parse(body);
+					resolve(topics);
+				} catch (err) {
+					reject(err);
+				}
 			}
-		}
+		});
 	});
 };
