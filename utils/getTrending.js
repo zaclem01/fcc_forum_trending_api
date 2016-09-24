@@ -11,13 +11,13 @@ module.exports = function(type, timePeriods) {
 		if (timePeriods === undefined) {
 			switch(type) {
 				case 'daily':
-					timePeriods = 7;
+					timePeriods = 28;
 					break;
 				case 'weekly':
-					timePeriods = 4;
+					timePeriods = 8;
 					break;
 				default:
-					timePeriods = 30;
+					timePeriods = 180;
 			}
 		}
 
